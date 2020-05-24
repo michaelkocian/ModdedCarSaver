@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdedCarSaver", "ModdedCarSaver\ModdedCarSaver.csproj", "{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Debug|x64.ActiveCfg = Debug|x64
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Debug|x64.Build.0 = Debug|x64
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Release|x64.ActiveCfg = Release|x64
+		{42FDA20C-D22F-42A7-9EA4-A791B82E78CF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F100F986-9CEB-483A-8698-6DD96AADE722}
+	EndGlobalSection
+EndGlobal
