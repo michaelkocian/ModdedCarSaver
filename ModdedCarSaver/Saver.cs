@@ -1,25 +1,22 @@
 ﻿using GTA;
 using NativeUI;
-using Newtonsoft.Json;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace ModdedCarSaver
 {
     public class Saver : Script
     {
-        int highlighted = 0;
+        private int highlighted = 0;
+        private readonly VehicleList VehicleList;
 
-        string configName = ".\\scripts\\ModdedCarSaver.ini";
 
-        private MenuPool myMenuPool = new MenuPool();
-        private UIMenu myMenu = new UIMenu("Modded Car Saver", "Select Your Car")
+        private readonly MenuPool myMenuPool = new MenuPool();
+        private readonly UIMenu myMenu = new UIMenu("Modded Car Saver", "Select Your Car")
         {
             ResetCursorOnOpen = true,
         };
-        private VehicleList VehicleList = new VehicleList();
 
         public Saver()
         {
@@ -28,18 +25,30 @@ namespace ModdedCarSaver
             KeyDown += OnKeyDown;
 
 
-            LoadIni();
+            VehicleList = IniHelper.LoadIni() ?? new VehicleList()
+            {
+                Vehicles = new System.Collections.Generic.List<VehicleModel>()
+                {
+                    new VehicleModel()
+                    {
+                        VehicleHash = VehicleHash.Zentorno,
+                        CustomPrimaryColor = Color.FromArgb(38, 38, 38),
+                        CustomSecondaryColor = Color.DarkOrange,
+                    }
+                }
+            };
+
             myMenu.OnItemSelect += Menu_OnItemSelect;
             myMenu.OnIndexChange += (sender, newIndex) => highlighted = newIndex;
             StyleMenu();
             RefreshMenu();
             myMenuPool.Add(myMenu);
-
         }
 
 
         private void StyleMenu()
         {
+            //this is only temporary because the native ui lib is bugged and shows only white.
             var background = new Sprite("commonmenu", "bgd_gradient", new Point(100, 20), new Size(200, 500))
             {
                 Color = Color.Blue,
@@ -49,10 +58,12 @@ namespace ModdedCarSaver
             myMenu.SetBannerType(background);
         }
 
+
         private void OnTick(object sender, EventArgs e)
         {
             myMenuPool.ProcessMenus();
         }
+
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -73,7 +84,7 @@ namespace ModdedCarSaver
                     {
                         string carName = VehicleList.Vehicles[highlighted - 1].VehicleHash.ToString();
                         VehicleList.Vehicles.RemoveAt(highlighted - 1);
-                        SaveIni();
+                        IniHelper.SaveIni(VehicleList);
                         RefreshMenu();
                         BigMessageThread.MessageInstance.ShowMissionPassedMessage($"Deleted {carName}", 3000);
                     }
@@ -81,20 +92,10 @@ namespace ModdedCarSaver
             }
         }
 
+
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.NumPad0)
-                LoadVehicleOrig();
-        }
 
-        private void LoadVehicleOrig()
-        {
-            GTA.Vehicle vehicle = GTA.World.CreateVehicle(GTA.VehicleHash.Zentorno, Game.Player.Character.Position + Game.Player.Character.ForwardVector * 3.0f, Game.Player.Character.Heading + 90);
-            vehicle.CanTiresBurst = false;
-            vehicle.Mods.CustomPrimaryColor = Color.FromArgb(38, 38, 38);
-            vehicle.Mods.CustomSecondaryColor = Color.DarkOrange;
-            vehicle.PlaceOnGround();
-            vehicle.Mods.LicensePlate = "SHVDN";
         }
 
 
@@ -116,6 +117,7 @@ namespace ModdedCarSaver
 
         }
 
+
         private void Menu_OnItemSelect(NativeUI.UIMenu sender, NativeUI.UIMenuItem selectedItem, int index)
         {
             if (index == 0)
@@ -124,21 +126,6 @@ namespace ModdedCarSaver
                 LoadVehicle(VehicleList.Vehicles[index - 1]);
         }
 
-        private void LoadIni()
-        {
-            try
-            {
-                string vehiclejson = File.ReadAllText(configName);
-                VehicleList = JsonConvert.DeserializeObject<VehicleList>(vehiclejson);
-            }
-            catch (FileNotFoundException) { }
-        }
-
-        private void SaveIni()
-        {
-            var vehiclejson = JsonConvert.SerializeObject(VehicleList, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
-            File.WriteAllText(configName, vehiclejson);
-        }
 
         private void LoadVehicle(VehicleModel m)
         {
@@ -153,6 +140,7 @@ namespace ModdedCarSaver
             vehicle.PlaceOnGround();
         }
 
+
         private void SaveVehicle()
         {
             var v = Game.Player.LastVehicle;
@@ -160,7 +148,7 @@ namespace ModdedCarSaver
             {
                 VehicleModel vehicleModel = VehicleModel.FromVehicle(v);
                 VehicleList.Vehicles.Insert(0, vehicleModel);
-                SaveIni();
+                IniHelper.SaveIni(VehicleList);
                 myMenu.Visible = false;
                 RefreshMenu();
                 GTA.UI.Notification.Show($"Saved vehicle: { v.DisplayName}.", true);
