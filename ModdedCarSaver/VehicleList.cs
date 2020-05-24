@@ -6,8 +6,9 @@ namespace ModdedCarSaver
     public class VehicleList
     {
 
+        public string Warning = "IF you are editing manually be very cautios!";
 
-        public Keys OpenMenuKeyCode = Keys.NumPad2;
+        public Keys OpenMenuKeyCode = Keys.F6;
 
         public Keys DeleteCarKeyCode = Keys.Delete;
 

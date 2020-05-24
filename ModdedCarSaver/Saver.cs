@@ -14,7 +14,7 @@ namespace ModdedCarSaver
 
         string configName = ".\\scripts\\ModdedCarSaver.ini";
 
-        private MenuPool _myMenuPool = new MenuPool();
+        private MenuPool myMenuPool = new MenuPool();
         private UIMenu myMenu = new UIMenu("Modded Car Saver", "Select Your Car")
         {
             ResetCursorOnOpen = true,
@@ -33,7 +33,7 @@ namespace ModdedCarSaver
             myMenu.OnIndexChange += (sender, newIndex) => highlighted = newIndex;
             StyleMenu();
             RefreshMenu();
-            _myMenuPool.Add(myMenu);
+            myMenuPool.Add(myMenu);
 
         }
 
@@ -51,7 +51,7 @@ namespace ModdedCarSaver
 
         private void OnTick(object sender, EventArgs e)
         {
-            _myMenuPool.ProcessMenus();
+            myMenuPool.ProcessMenus();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -66,7 +66,10 @@ namespace ModdedCarSaver
             if (e.KeyCode == VehicleList.DeleteCarKeyCode) // Our menu on/off switch
             {
                 if (myMenu.Visible)
-                    if (highlighted >= 1)
+                {
+                    if (highlighted == 0)
+                        Game.Player.LastVehicle.Repair();
+                    else if (highlighted >= 1)
                     {
                         string carName = VehicleList.Vehicles[highlighted - 1].VehicleHash.ToString();
                         VehicleList.Vehicles.RemoveAt(highlighted - 1);
@@ -74,6 +77,7 @@ namespace ModdedCarSaver
                         RefreshMenu();
                         BigMessageThread.MessageInstance.ShowMissionPassedMessage($"Deleted {carName}", 3000);
                     }
+                }
             }
         }
 
@@ -98,12 +102,14 @@ namespace ModdedCarSaver
         {
             myMenu.Clear();
             UIMenuColoredItem item = new UIMenuColoredItem("Save Current Vehicle", Color.Gray, Color.Yellow);
-            //item.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
+            item.Description = $"Press Enter to save, {VehicleList.DeleteCarKeyCode} to repair.";
+            //item.SetLeftBadge(UIMenuItem.BadgeStyle.Star); not working currently
             myMenu.AddItem(item);
             foreach (var i in VehicleList.Vehicles)
             {
                 item = new UIMenuColoredItem(i.VehicleHash.ToString(), Color.Gray, Color.White);
-                item.Description = "Press Enter to spawn, Del to delete.";
+                item.Description = $"Press Enter to spawn, {VehicleList.DeleteCarKeyCode} to delete.";
+                //item.SetLeftBadge(UIMenuItem.BadgeStyle.Car); not working currently
                 myMenu.AddItem(item);
             }
             myMenu.RefreshIndex();
@@ -130,7 +136,7 @@ namespace ModdedCarSaver
 
         private void SaveIni()
         {
-            var vehiclejson = JsonConvert.SerializeObject(VehicleList, Formatting.Indented);
+            var vehiclejson = JsonConvert.SerializeObject(VehicleList, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
             File.WriteAllText(configName, vehiclejson);
         }
 
@@ -157,7 +163,7 @@ namespace ModdedCarSaver
                 SaveIni();
                 myMenu.Visible = false;
                 RefreshMenu();
-                BigMessageThread.MessageInstance.ShowSimpleShard($"Saved {v.DisplayName}", "sub");
+                GTA.UI.Notification.Show($"Saved vehicle: { v.DisplayName}.", true);
             }
 
         }
