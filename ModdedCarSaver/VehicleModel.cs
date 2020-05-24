@@ -8,7 +8,7 @@ namespace ModdedCarSaver
 
 
 
-        public int VehicleHash { get; set; }
+        public VehicleHash VehicleHash { get; set; }
         public VehicleColor PrimaryColor { get; set; }
         public VehicleColor SecondaryColor { get; set; }
         public VehicleColor PearlescentColor { get; set; }
