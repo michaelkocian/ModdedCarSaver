@@ -129,15 +129,16 @@ namespace ModdedCarSaver
 
         private void LoadVehicle(VehicleModel m)
         {
+            myMenu.Visible = false;
             GTA.Vehicle vehicle = GTA.World.CreateVehicle(
                 m.VehicleHash,
                 Game.Player.Character.Position + Game.Player.Character.ForwardVector * 4.0f,
                 Game.Player.Character.Heading + 90
                 );
 
-            m.ApplyToVehicle(vehicle);
-
             vehicle.PlaceOnGround();
+            vehicle.Mods.InstallModKit();
+            m.ApplyToVehicle(vehicle);
         }
 
 

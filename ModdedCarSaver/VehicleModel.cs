@@ -179,7 +179,8 @@ namespace ModdedCarSaver
 
         public void ApplyToVehicle(Vehicle v)
         {
-
+            v.Mods.PrimaryColor = PrimaryColor;
+            v.Mods.SecondaryColor = SecondaryColor;
             v.Mods.CustomPrimaryColor = CustomPrimaryColor;
             v.Mods.CustomSecondaryColor = CustomSecondaryColor;
             v.Mods.PearlescentColor = PearlescentColor;
@@ -198,9 +199,7 @@ namespace ModdedCarSaver
             v.Mods.WindowTint = WindowTint;
             v.Mods.DashboardColor = DashboardColor;
             v.Mods.ColorCombination = ColorCombination;
-            v.Mods.SecondaryColor = SecondaryColor;
-            v.Mods.PrimaryColor = PrimaryColor;
-            v.Mods.Livery = LiveryMod;
+            //v.Mods.Livery = LiveryMod;
             v.Mods.WheelType = WheelType;
 
 
@@ -245,7 +244,7 @@ namespace ModdedCarSaver
             v.Mods[VehicleModType.Trim].Index = Trim;
             v.Mods[VehicleModType.Tank].Index = Tank;
             v.Mods[VehicleModType.Windows].Index = Windows;
-            v.Mods[VehicleModType.Livery].Index = Livery;
+            //  v.Mods[VehicleModType.Livery].Index = Livery;
 
 
             v.Mods[VehicleToggleModType.Turbo].IsInstalled = Turbo;
