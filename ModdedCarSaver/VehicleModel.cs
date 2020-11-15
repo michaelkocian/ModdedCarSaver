@@ -11,14 +11,14 @@ namespace ModdedCarSaver
 
 
         public VehicleHash VehicleHash { get; set; }
-        public VehicleColor PrimaryColor { get; set; }
+        public VehicleColor PrimaryColor { get; set; } = VehicleColor.Orange;
         public VehicleColor SecondaryColor { get; set; }
         public VehicleColor PearlescentColor { get; set; }
         public VehicleColor TrimColor { get; set; }
         public VehicleColor RimColor { get; set; }
         public VehicleColor DashboardColor { get; set; }
-        public int ColorCombination { get; set; }
-        public string LicensePlate { get; set; }
+        public int ColorCombination { get; set; } = 1;
+        public string LicensePlate { get; set; } = "49KWL722";
         public LicensePlateStyle LicensePlateStyle { get; set; }
 
         public Color NeonLightsColor { get; set; }
@@ -35,7 +35,7 @@ namespace ModdedCarSaver
         public Color TireSmokeColor { get; set; }
 
         public VehicleWindowTint WindowTint { get; set; }
-        public int Livery { get; set; }
+        public int Livery { get; set; } = -1;
 
         public Color CustomPrimaryColor { get; set; }
         public Color CustomSecondaryColor { get; set; }
