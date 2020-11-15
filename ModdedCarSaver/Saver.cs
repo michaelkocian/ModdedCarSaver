@@ -32,15 +32,13 @@ namespace ModdedCarSaver
                     new VehicleModel()
                     {
                         VehicleHash = VehicleHash.Zentorno,
-                        CustomPrimaryColor = Color.FromArgb(38, 38, 38),
-                        CustomSecondaryColor = Color.DarkOrange,
                     }
                 }
             };
 
             myMenu.OnItemSelect += Menu_OnItemSelect;
             myMenu.OnIndexChange += (sender, newIndex) => highlighted = newIndex;
-            StyleMenu();
+            //StyleMenu();
             RefreshMenu();
             myMenuPool.Add(myMenu);
         }
@@ -130,15 +128,16 @@ namespace ModdedCarSaver
         private void LoadVehicle(VehicleModel m)
         {
             myMenu.Visible = false;
+
             GTA.Vehicle vehicle = GTA.World.CreateVehicle(
-                m.VehicleHash,
+                new GTA.Model(m.VehicleHash), // or straight m.VehicleHash,
                 Game.Player.Character.Position + Game.Player.Character.ForwardVector * 4.0f,
                 Game.Player.Character.Heading + 90
                 );
 
-            vehicle.PlaceOnGround();
-            vehicle.Mods.InstallModKit();
+
             m.ApplyToVehicle(vehicle);
+            vehicle.PlaceOnGround();
         }
 
 
