@@ -36,11 +36,11 @@ namespace ModdedCarSaver
         public Color CustomPrimaryColor { get; set; }
         public Color CustomSecondaryColor { get; set; }
 
-        public bool Turbo { get; internal set; }
-        public bool TireSmoke { get; internal set; }
-        public bool XenonHeadlights { get; internal set; }
+        public bool Turbo { get; set; }
+        public bool TireSmoke { get; set; }
+        public bool XenonHeadlights { get; set; }
 
-        public List<VehicleModModel> Mods { get; internal set; } = new List<VehicleModModel>();
+        public List<VehicleModModel> Mods { get; set; } = new List<VehicleModModel>();
 
 
         public static VehicleModel FromVehicle(Vehicle vehicle)
@@ -84,6 +84,11 @@ namespace ModdedCarSaver
 
         public void ApplyToVehicle(Vehicle vehicle)
         {
+            vehicle.Mods.SecondaryColor = SecondaryColor;
+            vehicle.Mods.PearlescentColor = PearlescentColor;
+            vehicle.Mods.ColorCombination = ColorCombination;
+            vehicle.Mods.PrimaryColor = PrimaryColor;
+
             vehicle.CanTiresBurst = BulletProofTires;
             vehicle.Mods.WheelType = WheelType;
             vehicle.Mods.LicensePlate = LicensePlate;
@@ -109,10 +114,7 @@ namespace ModdedCarSaver
 
 
             //colors should be at at the end. Eventual model replacement (wheels) would reset the color;
-            vehicle.Mods.PrimaryColor = PrimaryColor;
-            vehicle.Mods.SecondaryColor = SecondaryColor;
-            vehicle.Mods.PearlescentColor = PearlescentColor;
-            vehicle.Mods.ColorCombination = ColorCombination;
+
 
             //this resets the primary and secondary colors. This way it's not possible to set the chrome color.
             //vehicle.Mods.CustomPrimaryColor = CustomPrimaryColor;
@@ -131,8 +133,8 @@ namespace ModdedCarSaver
 
     public class VehicleModModel
     {
-        public int Index { get; internal set; }
-        public bool Variation { get; internal set; }
-        public VehicleModType Type { get; internal set; }
+        public int Index { get; set; }
+        public bool Variation { get; set; }
+        public VehicleModType Type { get; set; }
     }
 }
