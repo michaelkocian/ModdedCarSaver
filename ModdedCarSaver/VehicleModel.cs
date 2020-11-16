@@ -8,8 +8,6 @@ namespace ModdedCarSaver
     public class VehicleModel
     {
 
-
-
         public VehicleHash VehicleHash { get; set; }
         public VehicleColor PrimaryColor { get; set; } = VehicleColor.Orange;
         public VehicleColor SecondaryColor { get; set; }
@@ -29,9 +27,7 @@ namespace ModdedCarSaver
 
         public VehicleWheelType WheelType { get; set; }
 
-
         public bool BulletProofTires { get; set; }
-
         public Color TireSmokeColor { get; set; }
 
         public VehicleWindowTint WindowTint { get; set; }
@@ -40,11 +36,9 @@ namespace ModdedCarSaver
         public Color CustomPrimaryColor { get; set; }
         public Color CustomSecondaryColor { get; set; }
 
-
         public bool Turbo { get; internal set; }
         public bool TireSmoke { get; internal set; }
         public bool XenonHeadlights { get; internal set; }
-
 
         public List<VehicleModModel> Mods { get; internal set; } = new List<VehicleModModel>();
 
@@ -118,11 +112,11 @@ namespace ModdedCarSaver
             vehicle.Mods.PrimaryColor = PrimaryColor;
             vehicle.Mods.SecondaryColor = SecondaryColor;
             vehicle.Mods.PearlescentColor = PearlescentColor;
+            vehicle.Mods.ColorCombination = ColorCombination;
 
-            //this resets colors in a weird way.
+            //this resets the primary and secondary colors. This way it's not possible to set the chrome color.
             //vehicle.Mods.CustomPrimaryColor = CustomPrimaryColor;
             //vehicle.Mods.CustomSecondaryColor = CustomSecondaryColor;
-            vehicle.Mods.ColorCombination = ColorCombination;
 
             vehicle.Mods.RimColor = RimColor;
             vehicle.Mods.TrimColor = TrimColor;

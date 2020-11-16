@@ -100,15 +100,15 @@ namespace ModdedCarSaver
         private void RefreshMenu()
         {
             myMenu.Clear();
-            UIMenuColoredItem item = new UIMenuColoredItem("Save Current Vehicle", Color.Gray, Color.Yellow);
+            UIMenuColoredItem item = new UIMenuColoredItem("Save Current Vehicle", Color.FromArgb(80, 80, 50, 80), Color.FromArgb(180, 205, 41, 255));
             item.Description = $"Press Enter to save, {VehicleList.DeleteCarKeyCode} to repair.";
-            //item.SetLeftBadge(UIMenuItem.BadgeStyle.Star); not working currently
+            item.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
             myMenu.AddItem(item);
             foreach (var i in VehicleList.Vehicles)
             {
-                item = new UIMenuColoredItem(i.VehicleHash.ToString(), Color.Gray, Color.White);
+                item = new UIMenuColoredItem(i.VehicleHash.ToString(), Color.FromArgb(30, 50, 50, 50), Color.FromArgb(180, 234, 237, 64));
                 item.Description = $"Press Enter to spawn, {VehicleList.DeleteCarKeyCode} to delete.";
-                //item.SetLeftBadge(UIMenuItem.BadgeStyle.Car); not working currently
+                item.SetLeftBadge(UIMenuItem.BadgeStyle.Car);
                 myMenu.AddItem(item);
             }
             myMenu.RefreshIndex();
