@@ -15,7 +15,7 @@ namespace ModdedCarSaver
         public VehicleColor TrimColor { get; set; }
         public VehicleColor RimColor { get; set; }
         public VehicleColor DashboardColor { get; set; }
-        public int ColorCombination { get; set; } = 1;
+        public int ColorCombination { get; set; }
         public string LicensePlate { get; set; } = "49KWL722";
         public LicensePlateStyle LicensePlateStyle { get; set; }
 
@@ -84,10 +84,11 @@ namespace ModdedCarSaver
 
         public void ApplyToVehicle(Vehicle vehicle)
         {
+            vehicle.Mods.PrimaryColor = PrimaryColor;
             vehicle.Mods.SecondaryColor = SecondaryColor;
             vehicle.Mods.PearlescentColor = PearlescentColor;
-            vehicle.Mods.ColorCombination = ColorCombination;
-            vehicle.Mods.PrimaryColor = PrimaryColor;
+            if (ColorCombination > 0)
+                vehicle.Mods.ColorCombination = ColorCombination;
 
             vehicle.CanTiresBurst = BulletProofTires;
             vehicle.Mods.WheelType = WheelType;

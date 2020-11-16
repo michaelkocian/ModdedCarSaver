@@ -108,7 +108,7 @@ namespace ModdedCarSaver
             myMenu.AddItem(item);
             foreach (var i in VehicleList.Vehicles)
             {
-                item = new UIMenuColoredItem(i.VehicleHash.ToString() + " " + i.PrimaryColor.ToString(), Color.FromArgb(30, 50, 50, 50), Color.FromArgb(180, 234, 237, 64));
+                item = new UIMenuColoredItem(i.VehicleHash.ToString() + " (" + i.PrimaryColor.ToString()+ ")", Color.FromArgb(30, 50, 50, 50), Color.FromArgb(180, 234, 237, 64));
                 item.Description = $"Press Enter to spawn, {VehicleList.DeleteCarKeyCode} to delete.";
                 item.SetLeftBadge(UIMenuItem.BadgeStyle.Car);
                 myMenu.AddItem(item);
